@@ -2,7 +2,7 @@ PATH := $(PATH):$(PWD)/node_modules/.bin
 
 .PHONY: gruntfile clean package.json
 
-all: clean update gruntfile package.json
+all: clean update gruntfile package.json polymer-expressions.min.js
 
 clean:
 	rm -rf tools; true
@@ -10,6 +10,7 @@ clean:
 	rm -rf node_modules/grunt-cli; true
 	rm -rf node_modules/underscore-cli; true
 	rm polymer-expressions.min.js; true
+	git checkout .gitignore
 	git checkout gruntfile.js
 	git checkout package.json
 
@@ -26,6 +27,7 @@ gruntfile:
 	rm  _gruntfile.js
 
 polymer-expressions.min.js: gruntfile node_modules/grunt-cli tools/
+	rm .gitignore
 	$$(which grunt) concat
 
 package.json: node_modules/underscore-cli node_modules/semver
